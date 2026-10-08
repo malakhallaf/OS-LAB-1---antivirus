@@ -3,7 +3,7 @@
 # assign command-line parameters to variables
 dir=$1
 malicious_dir=$2
-interval-secs=$3
+interval_secs=$3
 
 scan_directory() {
     echo "scanning $dir for malicious files..."
@@ -26,9 +26,9 @@ scan_directory
 ls -l "$dir" > directory-info.last
 
 while true; do
-    sleep "$interval-secs"
+    sleep "$interval_secs"
     ls -l "$dir" > directory-info.new
-    if ! cmp -s dirctory-info.last directory-info.new; then
+    if ! cmp -s directory-info.last directory-info.new; then
         echo "change detected in directory!"
         scan_directory
         cp directory-info.new directory-info.last
