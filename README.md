@@ -19,12 +19,12 @@ to execute the automation commands on an ubuntu system, the *make* utility must 
 sudo apt update
 sudo apt install make
 
-##### INSTRUCTIONS
+#### INSTRUCTIONS
 1. make sure the directory to be monitored exists in the same folder as the scripts (named dir)
 2. in your terminal, run "make daemon", this creates the quarantine folder if it's missing, grant execution permission, and start the continuous monitoring script
 3. to review the quarantined files, open a separate second terminal and run "make restore", you will be prompted to choose a quarantined file, and you get to choose whether to restore it back to its original directory, permanently delete it or leave it in quarantine
 
-###### FLAGGED-EXTENSIONS & FLAGGED-KEYWORDS
+#### FLAGGED-EXTENSIONS & FLAGGED-KEYWORDS
 a file is considered malicious if it matches at least one of the following rules:
 1. flagged extensions: file's extension matches one of the following, hardcoded exactly as written: .exe, .bat, .vbs, .scr, .ps1.
 -> these are defined in the daemon script, inside the scanning function, the first if condition
