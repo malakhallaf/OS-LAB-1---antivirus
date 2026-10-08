@@ -1,22 +1,33 @@
 #!/bin/bash
 
 # assign command-line parameters to variables
-MONITOR_DIR=$1
-QUARANTINE_DIR=$2
-INTERVAL=$3
+dir=$1
+malicious_dir=$2
+interval-secs=$3
 
 scan_directory() {
-    echo "scanning $MONITOR_DIR for malicious files..."
-    #
+    echo "scanning $dir for malicious files..."
+    for filepath in "$dir"/*; do
+    [ -f "$filepath" ] || continue # not regular file -> continue to next loop iteration
+        if [[ "$filepath" == *.exe || "$filepath" == *.bat || "$filepath" == *.vbs || "$filepath" == *.scr || "$filepath" == *.ps1 ]]; then
+            echo "$filepath is malicious and it is DELETED"
+            cp "$filepath" "$malicious_dir"
+            rm "$filepath"
+        elif grep -iE -q "virus|trojan|malware|worm|ransomware" "$filepath"; then
+            echo "$filepath is malicious and it is DELETED"
+            cp "$filepath" "$malicious_dir"
+            rm "$filepath"
+        fi    
+    done     
 }
 
 scan_directory
 
-ls -l "$MONITORR_DIR" > directory-info.last
+ls -l "$dir" > directory-info.last
 
 while true; do
-    sleep "$INTERVAL"
-    ls -l "$MONITOR_DIR" > directory-info.new
+    sleep "$interval-secs"
+    ls -l "$dir" > directory-info.new
     if ! cmp -s dirctory-info.last directory-info.new; then
         echo "change detected in directory!"
         scan_directory
