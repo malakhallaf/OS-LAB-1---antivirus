@@ -16,8 +16,10 @@ this project is a simple antivirus daemon written in bash. it periodically check
 
 #### PREREQUISITES
 to execute the automation commands on an ubuntu system, the *make* utility must be installed. to do so, run the following commands in your terminal:
+```
 sudo apt update
 sudo apt install make
+```
 
 #### INSTRUCTIONS
 1. make sure the directory to be monitored exists in the same folder as the scripts (named dir)
