@@ -26,6 +26,7 @@ while true; do
         cp "$filepath" "$dir"
         rm "$filepath"
         echo "restored $quarantined to $dir"
+        echo "$quarantined" >> whitelist.txt 
     elif [ "$choice" == "2" ]; then
         rm "$filepath"
         echo "$quarantined permanently deleted"

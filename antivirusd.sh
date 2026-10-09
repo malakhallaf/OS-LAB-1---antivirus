@@ -9,7 +9,9 @@ scan_directory() {
     echo "scanning $dir for malicious files..."
     for filepath in "$dir"/*; do
     [ -f "$filepath" ] || continue # not regular file -> continue to next loop iteration
-        if [[ "$filepath" == *.exe || "$filepath" == *.bat || "$filepath" == *.vbs || "$filepath" == *.scr || "$filepath" == *.ps1 ]]; then
+    filename=$(basename "$filepath")
+        if [ -f "whitelist.txt" ] && grep -F -x -q "$filename" "whitelist.txt"; then continue
+        elif [[ "$filepath" == *.exe || "$filepath" == *.bat || "$filepath" == *.vbs || "$filepath" == *.scr || "$filepath" == *.ps1 ]]; then
             echo "$filepath is malicious and it is DELETED"
             cp "$filepath" "$malicious_dir"
             rm "$filepath"
