@@ -70,6 +70,7 @@ i know that looks crazy, so let's break it down:
 1. `31 0` executes at 12:31 am, 31 is the minute, 0 is the hour (12 am in 24-hour format)
 2. `15-21` represents the day of the month, as the 3rd friday of any month will fall somewhere between the 15th and the 21st
 3. `[ "$(date '+\%u')" = "5" ]` is the day of the week enforcer, since standard cron treats the "day of month" and "day of week" fields as an OR condition if both are provided. so we set the "day of week" to * and using this inline bash test forces the script to execute *only* if the current day is friday (day #5)
+
 *if you'd like to use this cron scheduling, simply follow the same configuration steps previously mentioned*
 
 #### 2. WHITELIST
