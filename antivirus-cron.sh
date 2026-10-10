@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")" || exit
 
 # assign command-line parameters to variables
 dir=$1
@@ -30,6 +31,6 @@ else
     if ! cmp -s directory-info.last directory-info.new; then
     echo "change detected in directory!"
     scan_directory
-    cp directory-info.new directory-info.last
+    ls -l "$dir" > directory-info.last
     fi
 fi    

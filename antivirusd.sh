@@ -33,6 +33,6 @@ while true; do
     if ! cmp -s directory-info.last directory-info.new; then
         echo "change detected in directory!"
         scan_directory
-        cp directory-info.new directory-info.last
+        ls -l "$dir" > directory-info.last
     fi
 done        

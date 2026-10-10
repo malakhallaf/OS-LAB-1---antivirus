@@ -9,7 +9,8 @@ this project is a simple antivirus daemon written in bash. it periodically check
 ```
 .
 ├── Makefile         
-├── README.md         
+├── README.md
+├── antivirus-cron.sh            
 ├── antivirusd.sh      
 └── restore.sh
 ```
@@ -22,15 +23,15 @@ sudo apt install make
 ```
 
 ### INSTRUCTIONS
-1. make sure the directory to be monitored exists in the same folder as the scripts (named dir)
+1. in your terminal, run `make setup` to automatically create both the monitored and malicious directories
 2. in your terminal, run `make daemon`, this creates the quarantine folder if it's missing, grant execution permission, and start the continuous monitoring script
 3. to review the quarantined files, open a separate second terminal and run `make restore`, you will be prompted to choose a quarantined file, and you get to choose whether to restore it back to its original directory, permanently delete it or leave it in quarantine
 
 ### FLAGGED-EXTENSIONS & FLAGGED-KEYWORDS
 a file is considered malicious if it matches at least one of the following rules:
-1. flagged extensions: file's extension matches one of the following, hardcoded exactly as written: `.exe, .bat, .vbs, .scr, .ps1.`
+1. flagged extensions: file's extension matches one of the following, hardcoded exactly as written: `.exe, .bat, .vbs, .scr, .ps1`
 -> these are defined in the daemon script, inside the scanning function, the first if condition
-2. flagged keywords: file's contents contain one of the following keywords (case-insensitive), hardcoded exactly as written: `virus, trojan, malware, worm, ransomware.`
+2. flagged keywords: file's contents contain one of the following keywords (case-insensitive), hardcoded exactly as written: `virus, trojan, malware, worm, ransomware`
 -> these are defined in the daemon script, inside the scanning function, the first and only else if condition
 
 ### BONUS FEATURES
@@ -59,6 +60,7 @@ native linux `cron` only schedules down to the minute, a built-in `sleep` comman
 * * * * * sleep 23 && /your/absolute/path/antivirus-cron.sh /your/absolute/path/dir /your/absolute/path/malicious_dir
 ```
 4. save by pressing `ctrl+O`, press `enter`, then `ctrl+X` to exit. upon exiting, you should see a message saying `crontab: installing new crontab`
+5. if you'd like to turn off the cron scheduling, run `crontab -e`, scroll until the very end where you'll find the line you just wrote, add a `#` before it to comment it out, follow instruction 4 to save your changes
 
 ##### SCHEDULING: EVERY 3RD FRIDAY OF THE MONTH AT 12:31 AM
 ```

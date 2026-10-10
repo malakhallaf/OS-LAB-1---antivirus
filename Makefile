@@ -9,9 +9,6 @@ setup:
 daemon: setup
 	./antivirusd.sh $(DIR) $(MAL) $(SECS)
 
-cron-job: setup
-	./antivirus-cron.sh $(DIR) $(MAL)
-
 restore:
 	./restore.sh $(DIR) $(MAL)
 
